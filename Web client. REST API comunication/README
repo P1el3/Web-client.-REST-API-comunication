@@ -1,0 +1,55 @@
+==========README==========
+Piele Mihai Teodor 321 CBa
+
+In realizarea acestei teme am folosit sursele din
+laboratorul 10, alaturi de sursele primite alaturi
+de parson.h/.c
+
+Codul se ruleaza cu comanda: make ; clear ; ./client
+
+Pentru o utilizare mai usoara am declarat host-ul si
+port-ul global.
+
+Codul este facut sub urmatoarea structura in main:
+    -> declarare socket, cookie, token, 2 variabile
+    pentru verificarea userului daca este logat, o variabila
+    de rulare a clientului si o variabila de a citii informatii
+    de la tastatura.
+    -> pentru o comunicare corecta si continua cu serverul, socket-ul
+    este deschis si inchis la fiecare comanda in parte
+
+    -> functia register, citeste username-ul si parola pe care le 
+    salveaza in Json-uri (Jsoane???). Acestea sunt trimise la server
+    iar cu ce primesc de la server, testez daca am primit eroare sau
+    inregistrarea s-a facut cu succes
+
+    -> functia de login, pe acelasi principiu ca cea de register, citeste
+    datele de la tastura, pe care le trimit la server si in functie de ce 
+    imi returneaza serverul, testez daca mi intoarce vreo eroare, afisez mesajul
+    corespunzator. De asemenea in aceasta functie salvez cookie-ul, pe care il
+    caut in mesajul pe care mi-l intoarce serverul
+
+    -> functia de enter_library, trimite cookie-ul la server pentru a cere acces-ul
+    iar din raspunsul serverului, salvez token-ul
+
+    -> functia get_books verifica daca utilizatorul e logat si are acces 
+    la biblioteca 
+    verificarea se face prin if(isLogged == 1 && access == 1)
+    afisarea cartilor se face cu ajutorul functie strstr care mi gaseste
+    linia care incepe cu [{"id"  , stiind ca acolo incepe prima carte
+
+    -> functia get_book e asemanatoare cu cea de get_books, doar ca path-ut
+    este concatenat cu id-ul citit de la tastatura
+
+    -> functia add_book are in plus fata de celelalte for-ul care verifica
+    daca numarul de pagini este un int si nu se citeste un cuvant
+
+    -> functia de delete_book foloseste acelasi principiu cu path-ul ca cea de add_book
+    si trimite serverului datele (id-ul) care trebuie sters
+
+    -> functia de logout trimite server-ului dorinta mea ca vreau sa ma deloghez
+    si seteaza isLogged si acces la 0, ca sa stiu la urmatoarea incercare sau request de 
+    comanda ca cineva nu este logat si nu are acces, si resetez cookie si token ca mi se
+    buguia cand accesam alt user.
+
+    -> functia exit, seteaza client_on la 0, care returneaza 0 si inchide programul.
